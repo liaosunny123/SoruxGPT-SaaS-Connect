@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  soruxconnect:
+    image: epicmo/soruxgpt_connect:latest
+    ports:
+      - "80:80"
+    environment:
+      - PORT=8080
+      - GIN_MODE=release
+      - DB_TYPE=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=soruxgpt
+      - DB_PASSWORD=soruxgpt
+      - DB_NAME=soruxgpt
+      - DB_SSL_MODE=false
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+      - JWT_SECRET=PLEASE_EDIT_THIS_SECRET_IN_PRODUCTION
+      - JWT_EXPIRES_IN=24h
+      - REFRESH_TOKEN_EXPIRES_IN=162h
+      - LICENSE_KEY=EDITED_MANUALLY
+      - CORS_ENABLED=false
+    restart: unless-stopped
+  postgres:
+    image: postgres:17
+    environment:
+      - POSTGRES_DB=soruxgpt
+      - POSTGRES_USER=soruxgpt
+      - POSTGRES_PASSWORD=soruxgpt
+    restart: unless-stopped
+    volumes:
+      - ./data/postgres/:/var/lib/postgresql/data
+  redis:
+    image: redis
+    restart: always
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./data/redis/:/data/
