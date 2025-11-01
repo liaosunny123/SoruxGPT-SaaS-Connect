@@ -14,7 +14,7 @@ services:
       - DB_USER=soruxgpt
       - DB_PASSWORD=soruxgpt
       - DB_NAME=soruxgpt
-      - DB_SSL_MODE=false
+      - DB_SSL_MODE=disable
       - REDIS_HOST=redis
       - REDIS_PORT=6379
       - JWT_SECRET=PLEASE_EDIT_THIS_SECRET_IN_PRODUCTION
